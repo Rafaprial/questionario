@@ -1,5 +1,4 @@
 using questionariobackend.Data;
-using questionariobackend.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 
