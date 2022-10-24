@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
+using questionariobackend.Model;
 
 namespace questionariobackend.Data
 {

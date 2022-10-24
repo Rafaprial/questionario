@@ -61,7 +61,7 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-questionariobackend/Migrations
+questionariobackend\questionariobackend\Migrations
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
