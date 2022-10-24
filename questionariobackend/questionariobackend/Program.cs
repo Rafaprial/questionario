@@ -1,6 +1,5 @@
-using questionariobackend.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
+using questionariobackend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +18,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000",
+            policy.WithOrigins("http://localhost:3000", "*",
                                 "http://localhost");
         });
 });
