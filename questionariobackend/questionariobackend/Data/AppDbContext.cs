@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using questionariobackend.Model;
 using System.Collections.Generic;
 
 namespace questionariobackend.Data
@@ -10,6 +11,7 @@ namespace questionariobackend.Data
         {
 
         }
-       // public DbSet<Post> Posts { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }
