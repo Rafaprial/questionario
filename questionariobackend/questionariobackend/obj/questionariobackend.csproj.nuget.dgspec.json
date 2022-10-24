@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rafael.Prieto\\source\\repos\\questionariobackend\\questionariobackend\\questionariobackend.csproj": {}
+    "C:\\New folder\\Questionario\\questionariobackend\\questionariobackend\\questionariobackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rafael.Prieto\\source\\repos\\questionariobackend\\questionariobackend\\questionariobackend.csproj": {
+    "C:\\New folder\\Questionario\\questionariobackend\\questionariobackend\\questionariobackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rafael.Prieto\\source\\repos\\questionariobackend\\questionariobackend\\questionariobackend.csproj",
+        "projectUniqueName": "C:\\New folder\\Questionario\\questionariobackend\\questionariobackend\\questionariobackend.csproj",
         "projectName": "questionariobackend",
-        "projectPath": "C:\\Users\\Rafael.Prieto\\source\\repos\\questionariobackend\\questionariobackend\\questionariobackend.csproj",
+        "projectPath": "C:\\New folder\\Questionario\\questionariobackend\\questionariobackend\\questionariobackend.csproj",
         "packagesPath": "C:\\Users\\Rafael.Prieto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rafael.Prieto\\source\\repos\\questionariobackend\\questionariobackend\\obj\\",
+        "outputPath": "C:\\New folder\\Questionario\\questionariobackend\\questionariobackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rafael.Prieto\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
