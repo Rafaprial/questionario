@@ -25,27 +25,39 @@ namespace questionariobackend.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult addRespuesta(Respuesta respuesta)
+        public IActionResult addRespuesta([FromBody] Respuesta respuesta)
         {
             if (respuesta == null)
             {
                 throw new ArgumentNullException();
             }
-            int questionId = respuesta.QuestionId;
-            int userId = respuesta.UserId;
+            Questions pregunta = null;
+            User usuario = null;
+            try
+            {
+                usuario = _context.Users.First(user => user.Id == respuesta.UserId);
+                pregunta = _context.Question.First(question => question.Id == respuesta.QuestionId);
+            }
+            catch (Exception e) { }
 
-            if (_context.Users.First(user => user.Id == userId) == null)
+
+            if (usuario == null)
             {
                 return BadRequest("User reference not found");
+
             }
-            if (_context.Question.First(question => question.Id == questionId) == null)
+            if (pregunta == null)
             {
                 return BadRequest("respuesta reference not found");
+            }
+            if (!pregunta.Tipo.Equals(respuesta.Tipo))
+            {
+                return BadRequest("Types of the question and the response do not match");
             }
 
             if (respuesta.Tipo == "boolean")
             {
-                if (respuesta.Contenido != "true" || respuesta.Contenido != "false")
+                if (!respuesta.Contenido.Equals("true") && !respuesta.Contenido.Equals("false"))
                 {
                     return BadRequest(respuesta.Contenido + " not allowed for response type boolean");
                 }
@@ -62,12 +74,12 @@ namespace questionariobackend.Controllers
                 }
                 catch (FormatException e)
                 {
-                    return BadRequest(respuesta.Contenido + " its not allowed for response type number");
+                    return BadRequest(respuesta.Contenido + " its not allowed for response type number (NaN)");
                 }
             }
             else if (respuesta.Tipo != "multChoice")
             {
-                return BadRequest("type not allowed");
+                return BadRequest("Response type not allowed");
             }
             _context.Respuesta.Add(respuesta);
             _context.SaveChanges();
@@ -79,23 +91,38 @@ namespace questionariobackend.Controllers
         [Route("{id}")]
         public IActionResult GetRespuestaById(int id)
         {
-            Respuesta respuesta = _context.Respuesta.First((respuesta) => respuesta.Id == id);
-            if (respuesta == null)
+            Respuesta respuesta = null;
+            try
+            {
+                respuesta = _context.Respuesta.First((respuesta) => respuesta.Id == id);
+            }
+            catch (InvalidOperationException e)
             {
                 return NotFound();
             }
+
             return Ok(respuesta);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public void DeleteRespuestaById(int id)
+        public IActionResult DeleteRespuestaById(int id)
         {
-            Respuesta toRemove = _context.Respuesta.First((respuesta) => respuesta.Id == id);
+            Respuesta respuesta = null;
+            try
+            {
+                respuesta = _context.Respuesta.First((respuesta) => respuesta.Id == id);
+            }
+            catch (InvalidOperationException e)
+            {
+                return NotFound();
+            }
 
 
-            _context.Respuesta.Remove(toRemove);
+            _context.Respuesta.Remove(respuesta);
             _context.SaveChanges();
+
+            return Ok();
         }
 
     }

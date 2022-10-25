@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using questionariobackend.Data;
 using questionariobackend.Model;
 
@@ -18,19 +19,16 @@ namespace questionariobackend.Controllers
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<Questions> GetAll()
+        public IActionResult GetAll()
         {
-            return _context.Question;
+            return Ok(_context.Question);
         }
 
         [HttpPost]
         [Route("")]
-        public IActionResult addQuestion(Questions question)
+        public IActionResult addQuestion([FromBody] Questions question)
         {
-            if (question == null)
-            {
-                throw new ArgumentNullException();
-            }
+
             if (question.Tipo == "boolean")
             {
                 question.Respuestas = "true:false";
@@ -45,7 +43,7 @@ namespace questionariobackend.Controllers
             }
             _context.Question.Add(question);
             _context.SaveChanges();
-            return this.CreatedAtAction(nameof(GetQuestionById), new { id = question.Id }, question);
+            return CreatedAtAction(nameof(GetQuestionById), new { id = question.Id }, question);
         }
 
 
@@ -53,23 +51,45 @@ namespace questionariobackend.Controllers
         [Route("{id}")]
         public IActionResult GetQuestionById(int id)
         {
-            Questions question = _context.Question.First((question) => question.Id == id);
-            if (question == null)
+            Questions question = null;
+            try
+            {
+                question = _context.Question.First((question) => question.Id == id);
+            }
+            catch (InvalidOperationException e)
             {
                 return NotFound();
             }
+
             return Ok(question);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public void DeleteQuestionById(int id)
+        public IActionResult DeleteQuestionById(int id)
         {
-            Questions toRemove = _context.Question.First((question) => question.Id == id);
+            Questions toRemove = null;
+            try
+            {
+                toRemove = _context.Question.First((question) => question.Id == id);
+            }
+            catch
+            {
+                return NotFound();
+            }
 
+
+            _context.Respuesta.AsQueryable().ForEachAsync((respuesta) =>
+            {
+                if (respuesta.QuestionId == id)
+                {
+                    _context.Respuesta.Remove(respuesta);
+                }
+            });
 
             _context.Question.Remove(toRemove);
             _context.SaveChanges();
+            return Ok();
         }
 
 

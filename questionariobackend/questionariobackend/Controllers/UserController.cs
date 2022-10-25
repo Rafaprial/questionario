@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using questionariobackend.Data;
 using questionariobackend.Model;
+using System.Collections;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ApiRest.Controllers
@@ -20,7 +20,7 @@ namespace ApiRest.Controllers
             _context = context;
         }
 
-        // GET: api/<PostsController>
+        // GET: api/<UserController>
         [HttpGet]
         public IEnumerable<User> Get()
         {
@@ -29,7 +29,7 @@ namespace ApiRest.Controllers
 
 
 
-        // GET api/<PostsController>/5
+        // GET api/<UserController>/5
         [HttpGet("{id}")]
         public User Get(int id)
         {
@@ -43,7 +43,7 @@ namespace ApiRest.Controllers
             }
         }
 
-        // User api/<PostsController>
+        // User api/<UserController>
         [HttpPost]
         public void User([FromBody] User value)
         {
@@ -51,7 +51,7 @@ namespace ApiRest.Controllers
             _context.SaveChanges();
         }
 
-        // PUT api/<PostsController>/5
+        // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody][Bind("Id,Title,Body,Category")] User value)
         {
@@ -61,12 +61,37 @@ namespace ApiRest.Controllers
             _context.SaveChanges();
         }
 
-        // DELETE api/<PostsController>/5
+        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
+            _context.Respuesta.AsQueryable().ForEachAsync((respuesta) =>
+            {
+                if (respuesta.UserId == id)
+                {
+                    _context.Respuesta.Remove(respuesta);
+                }
+            });
+
             _context.Users.Remove(Get(id));
             _context.SaveChanges();
+        }
+
+        // GET api/<UserController>/5/responses
+        [HttpGet("{id}/responses")]
+        public IActionResult GetUserResponses(int id)
+        {
+            ArrayList respuestas = new ArrayList();
+            _context.Respuesta.AsQueryable().ForEachAsync((respuesta) =>
+            {
+                if (respuesta.UserId == id)
+                {
+                    respuestas.Add(respuesta);
+                }
+            });
+
+            return Ok(respuestas);
         }
     }
 }
