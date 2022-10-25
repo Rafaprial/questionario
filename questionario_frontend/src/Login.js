@@ -4,11 +4,20 @@ import "./Login.css"
 import { useEffect, useState } from "react";
 
 function Login(){
+    const [posts, setPosts] = useState(null);
+     function handleSubmit(event){
+      event.preventDefault()
 
-    useEffect(()=>{
-
-    })
-    function handleSubmit(){}
+        let emailRec = event.target.email.value;
+        let passRec = event.target.password.value
+        const user = {email: emailRec,pass: passRec}
+        // const user = {email: "asdf", pass: "1234"}
+        // debugger
+        axios.post("https://localhost:7264/login",user).then((e)=>setPosts(e));
+        // console.log(posts)
+        // axios.get("https://localhost:7264/api/user").then((e)=>setPosts(e));
+        // console.log(posts)
+    }
     const theme = createTheme();
     return(
 <ThemeProvider theme={theme}>
