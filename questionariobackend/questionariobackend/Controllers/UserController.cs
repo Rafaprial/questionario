@@ -51,7 +51,27 @@ namespace ApiRest.Controllers
             _context.SaveChanges();
         }
 
-        // PUT api/<UserController>/5
+        [HttpPost("/login")]
+        public bool Login([FromBody] Account value)
+        {
+            try {
+            User account = _context.Users.FirstOrDefault(x => x.Email == value.email);
+
+            if (account.Password== value.pass)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // PUT api/<PostsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody][Bind("Id,Title,Body,Category")] User value)
         {
