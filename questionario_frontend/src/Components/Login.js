@@ -14,15 +14,17 @@ function Login(){
       const user = {email: emailRec,pass: passRec}
       axios.post("https://localhost:7264/login",user).then((e)=>setPosts(e));
       if(posts){
-        navigate("/questions");
+        navigate("/questions")
       }else{
-        setError(true);
+        setError(true)
       }
       
+      
     }
-    
+
     
     useEffect ((e)=>{
+
     },[posts])
     
 
@@ -73,7 +75,7 @@ function Login(){
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 }} id="submit"
             >
               Sign In
             </Button>

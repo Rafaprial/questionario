@@ -48,14 +48,14 @@ function BooleanQuestion(props) {
         >
         <FormControl >
         <h3>{question.question}</h3>
-        <Select value={Respuesta} onChange={(e) => setRespuesta(e.target.value)}>
+        <Select id="select" value={Respuesta} onChange={(e) => setRespuesta(e.target.value)}>
             {responses.map(element => {
               return  <MenuItem key={element} value={element}> {element}</MenuItem> 
             })}
         </Select>
         </FormControl>
 
-    <Button variant="contained" onClick={submitAnswer}>Next</Button>
+    <Button id="send" variant="contained" onClick={submitAnswer}>Next</Button>
     </Box>
     </> );
 }
