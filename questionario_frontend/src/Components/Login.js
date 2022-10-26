@@ -1,23 +1,24 @@
 import { Avatar, Box, Button, Container, createTheme, CssBaseline, Grid, Link, TextField, ThemeProvider, Typography } from "@mui/material";
 import axios from "axios";
-import "./Login.css"
 import { useEffect, useState } from "react";
+import { Router, useNavigate } from "react-router-dom";
 
 function Login(){
     const [posts, setPosts] = useState(null);
-     function handleSubmit(event){
+    const navigate = useNavigate();
+    function handleSubmit(event){
       event.preventDefault()
-
-        let emailRec = event.target.email.value;
-        let passRec = event.target.password.value
-        const user = {email: emailRec,pass: passRec}
-        axios.post("https://localhost:7264/login",user).then((e)=>setPosts(e));
+      let emailRec = event.target.email.value;
+      let passRec = event.target.password.value
+      const user = {email: emailRec,pass: passRec}
+      axios.post("https://localhost:7264/login",user).then((e)=>setPosts(e));
+      if(posts){
+        navigate("/questions");
+      }
     }
     
     
     useEffect ((e)=>{
-      this.props.parenthandleLogin(posts);
-      console.log(posts)
     },[posts])
     
 
