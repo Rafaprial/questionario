@@ -11,14 +11,19 @@ function Login(){
         let emailRec = event.target.email.value;
         let passRec = event.target.password.value
         const user = {email: emailRec,pass: passRec}
-        // const user = {email: "asdf", pass: "1234"}
-        // debugger
         axios.post("https://localhost:7264/login",user).then((e)=>setPosts(e));
-        // console.log(posts)
-        // axios.get("https://localhost:7264/api/user").then((e)=>setPosts(e));
-        // console.log(posts)
     }
+    
+    
+    useEffect ((e)=>{
+      this.props.parenthandleLogin(posts);
+      console.log(posts)
+    },[posts])
+    
+
     const theme = createTheme();
+    
+
     return(
 <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using questionariobackend.Data;
 using questionariobackend.Model;
 using System.Collections;
+using System.Web.Http.Cors;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ApiRest.Controllers
 {
 
-
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Route("api/User")]
     [ApiController]
     public class UserController : ControllerBase
@@ -55,7 +56,7 @@ namespace ApiRest.Controllers
         public bool Login([FromBody] Account value)
         {
             try {
-            User account = _context.Users.FirstOrDefault(x => x.Email == value.email);
+            User account = _context.Users.First(x => x.Email == value.email);
 
             if (account.Password== value.pass)
             {

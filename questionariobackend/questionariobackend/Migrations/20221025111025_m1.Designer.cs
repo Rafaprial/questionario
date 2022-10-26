@@ -11,7 +11,7 @@ using questionariobackend.Data;
 namespace questionariobackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221024135403_m1")]
+    [Migration("20221025111025_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
