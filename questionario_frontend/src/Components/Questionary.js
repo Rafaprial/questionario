@@ -30,7 +30,7 @@ function Questionary(props) {
     }
     
     return ( <>
-        <h2> QUESTIONARIO </h2>
+
         {   Loaded && 
             <BooleanQuestion pregunta={Current} userId={userLogged} nextQuestion={passQuestion}></BooleanQuestion>
         }

@@ -2,7 +2,6 @@
   "profiles": {
     "questionariobackend": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -16,7 +15,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",

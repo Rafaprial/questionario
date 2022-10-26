@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
-import { Select, MenuItem } from '@mui/material'
+import './BooleanQuestion.css';
+import { Select, MenuItem, FormControl, Button } from '@mui/material'
+import { Box } from '@mui/system';
 
 function BooleanQuestion(props) {
     const userId = props.userId;
@@ -37,14 +38,25 @@ function BooleanQuestion(props) {
     }
 
     return ( <>
-    <h3>{question.question}</h3>
-    
+     <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+        <FormControl >
+        <h3>{question.question}</h3>
         <Select value={Respuesta} onChange={(e) => setRespuesta(e.target.value)}>
             {responses.map(element => {
-              return  <MenuItem value={element}> {element}</MenuItem> 
+              return  <MenuItem key={element} value={element}> {element}</MenuItem> 
             })}
         </Select>
-    <button onClick={submitAnswer}>save and next</button>
+        </FormControl>
+
+    <Button variant="contained" onClick={submitAnswer}>Next</Button>
+    </Box>
     </> );
 }
 
